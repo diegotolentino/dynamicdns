@@ -4,8 +4,8 @@ Usage:
     fab [target] [action ...]
 
 fab --list
-fab -H your_ssh_host update_dns:domain='sub.mydomain.com',local_port=80,local_ip=111.222.121.212
-fab -H your_ssh_host update_dns:domain='sub.mydomain.com',local_port=80
+fab -H your_ssh_host update_dns:domain='sub.mydomain.com',target_port=80,target_ip=111.222.121.212
+fab -H your_ssh_host update_dns:domain='sub.mydomain.com',target_port=80
 """
 import urllib2
 from StringIO import StringIO
@@ -43,16 +43,16 @@ def get_local_ip():
 
 
 @task
-def update_dns(domain, local_port=80, local_ip=None, template='nginx.tpl'):
+def update_dns(domain, target_port=80, target_ip=None, template='nginx.tpl'):
     """ Atualiza o proxy do nginx """
 
-    if not local_ip:
-        local_ip = get_local_ip()
+    if not target_ip:
+        target_ip = get_local_ip()
 
     kwargs = {
         'domain': domain,
-        'local_port': local_port,
-        'local_ip': local_ip
+        'target_port': target_port,
+        'target_ip': target_ip
     }
 
     files.upload_template(

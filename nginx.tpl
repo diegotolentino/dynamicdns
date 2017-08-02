@@ -14,6 +14,6 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header Host $http_host;
         proxy_redirect off;
-        proxy_pass http://{{local_ip}}:{{local_port}};
+        proxy_pass http://{{target_ip}}:{{target_port}};
     }
 }
